@@ -37,7 +37,7 @@ onUnmounted(() => {
     v-click-outside="closeItem"
     :class="{ 'responisve-mode': isResponsive, 'menu-open': props.modelValue }"
   >
-    <h4 class="m-3">Post</h4>
+    <h4 class="m-3 text-bg-primary">Post</h4>
     <SidebarItem @click="closeItem" label="All Articles" to="/" />
     <SidebarItem @click="closeItem" label="New Article" to="/newArticle" />
   </nav>

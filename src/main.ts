@@ -1,9 +1,9 @@
 import { createApp } from "vue";
 //styles
-import "./style.css";
+import "./styles/style.css";
 import "vue-toastification/dist/index.css";
 import "vue-awesome-paginate/dist/style.css";
-import "bootstrap/dist/css/bootstrap.css";
+import "./styles/palalte.scss";
 //componets
 import App from "./App.vue";
 //ui libraries

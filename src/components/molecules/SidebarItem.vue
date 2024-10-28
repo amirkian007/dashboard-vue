@@ -11,14 +11,23 @@ const props = defineProps<{
 
 <template>
   <RouterLink :to="props.to">
-    <div class="sidebar-item  text-bg-primary p-3 d-flex align-items-center">
+    <div class="sidebar-item hover-bg text-bg-primary p-3 d-flex align-items-center">
       <span class="sidebar-label">{{ props.label }}</span>
     </div>
   </RouterLink>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .sidebar-item {
   cursor: pointer;
+  transition: all .3s;
+  &:hover {
+    background-color: #ffffff34 !important; 
+    // background-color: var(--bs-primary); 
+  }
+
+}
+.hover-bg {
+  
 }
 </style>

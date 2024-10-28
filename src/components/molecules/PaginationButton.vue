@@ -28,3 +28,11 @@ function emits(n: number) {
     />
   </div>
 </template>
+
+<style >
+
+.paginate-buttons{
+  /* put important so it does not get overwritten */
+  background-color: rgb(239, 239, 239) !important;
+}
+</style>
