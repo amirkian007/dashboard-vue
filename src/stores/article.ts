@@ -2,8 +2,11 @@
 import api from "@/services/api";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useToast } from "vue-toastification";
 //types
 import type { articlePost } from "@/services/article";
+//hooks
+const toast = useToast();
 
 export const useArticleStore = defineStore("table", () => {
   //data
@@ -12,6 +15,7 @@ export const useArticleStore = defineStore("table", () => {
   const currentPage = ref(1);
   const totalPages = ref(1);
   const tags = ref<string[]>([]);
+
   //methods
   const fetchData = async (page: number = 1) => {
     isLoading.value = true;
@@ -28,27 +32,42 @@ export const useArticleStore = defineStore("table", () => {
     }
   };
 
-  async function getTags(){
+  async function getTags() {
     const response = await api.article.getTags();
-    tags.value = response.tags
+    tags.value = response.tags;
   }
 
-  async function postArticle(dpayload:articlePost){
-    const response = await api.article.postArticle(dpayload);
-    data.value = [response.article,...data.value]
+  async function postArticle(dpayload: articlePost) {
+    try {
+      const response = await api.article.postArticle(dpayload);
+      toast.success("article posted!");
+      data.value = [response.article, ...data.value];
+    } catch (error) {
+      console.error("Error :", error);
+    }
   }
-  async function getArticle(slug:string){
+  async function getArticle(slug: string) {
     const response = await api.article.getArticleBySlug(slug);
-    return response
+    return response;
   }
-  async function updateArticle(dpayload:articlePost,slug:string){
-    const response = await api.article.editArticle(dpayload,slug);
-    return response
+  async function updateArticle(dpayload: articlePost, slug: string) {
+    try {
+      const response = await api.article.editArticle(dpayload, slug);
+      toast.success("article Updated!");
+      return response;
+    } catch (error) {
+      console.error("Error :", error);
+    }
   }
-  async function deleteArticleBySlug(slug:string) {
-    const response = await api.article.deleteArticleBySlug(slug);
-    fetchData(currentPage.value)
-    return response
+  async function deleteArticleBySlug(slug: string) {
+    try {
+      const response = await api.article.deleteArticleBySlug(slug);
+      toast.success("article Deleted!");
+      fetchData(currentPage.value);
+      return response;
+    } catch (error) {
+      console.error("Error :", error);
+    }
   }
 
   return {
@@ -62,6 +81,6 @@ export const useArticleStore = defineStore("table", () => {
     getTags,
     tags,
     postArticle,
-    getArticle
+    getArticle,
   };
 });
