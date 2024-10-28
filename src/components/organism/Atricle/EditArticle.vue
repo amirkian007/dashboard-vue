@@ -17,14 +17,20 @@ const data = ref<Article>()
 const loading = ref(true)
 //methods
 async function handleSubmit(formData: any) {
-  const formDataas = {
-    title: formData.title,
-    description: formData.description,
-    body: formData.body,
-    tagList: formData.tagList,
-  };
-  await useArticleStore().updateArticle({ article: formDataas }, data.value?.slug!);
-  router.push("/");
+  try{
+    const formDataas = {
+      title: formData.title,
+      description: formData.description,
+      body: formData.body,
+      tagList: formData.tagList,
+    };
+    loading.value = true
+    await useArticleStore().updateArticle({ article: formDataas }, data.value?.slug!);
+    loading.value = false
+    router.push("/");
+  }catch(err){
+    console.error(err)
+  }
 }
 async function getArticle() {
   const article = await store.getArticle(route.params.slug as unknown as string)
@@ -38,6 +44,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <ArticleForm v-if="!loading" @submit="handleSubmit" :data="data"></ArticleForm>
-  <h2 v-else>Loading ...</h2>
+  <ArticleForm :loading="loading" @submit="handleSubmit" :data="data"></ArticleForm>
+   
 </template>

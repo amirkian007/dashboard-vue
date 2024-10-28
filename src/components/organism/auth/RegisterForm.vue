@@ -12,9 +12,16 @@ const authStore = useAuthStore();
 const username = ref("");
 const password = ref("");
 const email = ref("");
+const isLoading = ref(false);
 //methods
 async function handleSubmit() {
-  await authStore.register(username.value, password.value, email.value);
+  try{
+    isLoading.value = true
+    await authStore.register(username.value, password.value, email.value);
+    isLoading.value = false
+  }catch(err){
+    console.error(err)
+  }
 }
 </script>
 
@@ -38,6 +45,6 @@ async function handleSubmit() {
       label="Email"
       placeholder="Enter email"
     />
-    <AButton type="submit" variant="primary" size="lg"> Register </AButton>
+    <AButton type="submit" variant="primary" size="lg" :disabled="isLoading"> Register </AButton>
   </form>
 </template>

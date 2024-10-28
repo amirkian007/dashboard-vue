@@ -15,6 +15,7 @@ interface formeDate {
     body: string;
     tagList: string[];
   };
+  loading:boolean
 }
 //props
 const props = withDefaults(defineProps<formeDate>(), {
@@ -25,6 +26,7 @@ const props = withDefaults(defineProps<formeDate>(), {
     body: "",
     tagList: [],
   },
+  loading:false
 });
 //hooks
 const articleStore = useArticleStore();
@@ -32,6 +34,7 @@ const articleStore = useArticleStore();
 const errors = ref(props.data);
 const tags = ref<string[]>([]);
 const selctedTag = ref("");
+ 
 const formData = reactive(props.data);
 //emits
 const emit = defineEmits<{
@@ -101,7 +104,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="d-flex">
-      <Button type="submit" variant="primary" size="lg" :block="false">
+      <Button type="submit" variant="primary" size="lg" :block="false" :disabled="props.loading">
         Submit
       </Button>
     </div>

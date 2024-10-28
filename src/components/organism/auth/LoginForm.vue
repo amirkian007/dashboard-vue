@@ -15,9 +15,16 @@ const errors = ref({
   email: "",
   password: "",
 });
+const isLoading = ref(false)
 //methods
-function handleSubmit() {
+async function handleSubmit() {
+  try{
+    isLoading.value = true
     useAuthStore().login(formData.value.email, formData.value.password);
+    isLoading.value = false
+  }catch(err){
+    console.error(err)
+  }
 }
 </script>
 
@@ -37,7 +44,7 @@ function handleSubmit() {
       placeholder="Enter your password"
       :error="errors.password"
     />
-    <AButton type="submit" variant="primary" size="lg"> Login </AButton>
+    <AButton type="submit" variant="primary" size="lg" :disabled="isLoading"> Login </AButton>
   </form>
 </template>
 
