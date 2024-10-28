@@ -1,17 +1,21 @@
+//utils
 import api from '@/services/api';
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
+//hooks
 const toast = useToast();
+const router = useRouter();
 
 export const useAuthStore = defineStore('auth', () => {
-  const router = useRouter();
+  //data
   const token = ref<string | null>(localStorage.getItem('authToken'));
   const username = ref<string | null>(null);
   const errorMessage = ref<string | null>(null);
+  //computed
   const isAuthenticated = computed(() => !!token.value);
-
+  //methods
   async function login(email: string, password: string) {
     try {
       const response = await api.users.loginUser({user:{password,email}})

@@ -1,18 +1,22 @@
 import { createApp } from "vue";
+//styles
 import "./style.css";
-import App from "./App.vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.js";
-import { createPinia } from "pinia";
-import Toast, { PluginOptions } from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import router from "./router/router";
-import VueAwesomePaginate from "vue-awesome-paginate";
 import "vue-awesome-paginate/dist/style.css";
+import "bootstrap/dist/css/bootstrap.css";
+//componets
+import App from "./App.vue";
+//ui libraries
+import "bootstrap/dist/js/bootstrap.js";
+import Toast, { PluginOptions } from "vue-toastification";
+import VueAwesomePaginate from "vue-awesome-paginate";
+// libraries
+import router from "./router/router";
+//@ts-ignore
 import vClickOutside from "click-outside-vue3"
+import { createPinia } from "pinia";
 
 const options: PluginOptions = {
-  // Optional toast configurations
   //@ts-ignore
   position: "top-right",
   timeout: 5000,

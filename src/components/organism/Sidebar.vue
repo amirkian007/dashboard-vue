@@ -8,17 +8,19 @@
 </template>
 
 <script lang="ts" setup>
+// components
 import SidebarItem from "../molecules/SidebarItem.vue";
-
+// props
 const props = withDefaults(defineProps<{ modelValue: boolean }>(), {
   modelValue: false
 });
+//emits
 const emit = defineEmits<{
   (e: "update:modelValue", v: any): void;
 }>();
-
+//data
 const isResponsive = innerWidth < 992
-
+//methods
 function closeItem() {
   if (props.modelValue) {
     emit('update:modelValue', false)

@@ -1,11 +1,12 @@
+//utils
 import { API_URL } from "@/configs/global";
 import { useAuthStore } from "@/stores/auth";
-// import {ApiError} from '@/types/http-errors.interface';
 import axios, {
   AxiosRequestConfig,
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
+//hooks
 import { useToast } from "vue-toastification";
 
 const toast = useToast();

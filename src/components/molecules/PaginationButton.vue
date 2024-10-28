@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from "vue";
-
+//props
 const props = defineProps<{
   currentPage: number;
   totalPages: number;
 }>();
-
+//emits
 const emit = defineEmits<{
   (e: "changePage", page: number): void;
 }>();
-
+// data
 const curretnPage = ref(props.currentPage);
-
+// methods
 function emits(n: number) {
   emit("changePage", n);
 }

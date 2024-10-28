@@ -1,14 +1,19 @@
 <script lang="ts" setup>
+// utils
 import Sidebar from "@/components/organism/Sidebar.vue";
 import { RouterView } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { onMounted, ref } from "vue";
-import Header from "../molecules/Header.vue";
+//hooks
 const store = useAuthStore();
+//components
+import Header from "../molecules/Header.vue";
+//data
+const isMenuOpen = ref(false)
+//lifecycle
 onMounted(() => {
   store.setUser();
 });
-const isMenuOpen = ref(false)
 </script>
 
 <template>

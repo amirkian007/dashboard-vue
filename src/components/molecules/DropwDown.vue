@@ -1,16 +1,19 @@
 <script setup lang="ts">
+//components
 import AButton from "../atoms/Button/Button.vue";
-
-const emit = defineEmits<{
-  (e: "itemClick", item: any): void;
-}>();
+//types
 interface Item {
   name: string;
 }
+//emits
+const emit = defineEmits<{
+  (e: "itemClick", item: any): void;
+}>();
+//props
 const props = defineProps<{
   items: Item[];
 }>();
-
+//methods
 const handleSelect = (item: any) => {
   emit("itemClick", item)
 };

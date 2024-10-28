@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import PaginationControls from "../molecules/PaginationButton.vue";
+//utils
 import { useArticleStore } from "@/stores/article";
+import { computed, onMounted, ref } from "vue";
+//components
+import PaginationControls from "../molecules/PaginationButton.vue";
 import DeleteArticleModal from "./modals/DeleteArticleModal.vue";
-
+//hooks
 const tableStore = useArticleStore();
+//computed
 const tableData = computed(() => tableStore.data);
 const currentPage = computed(() => tableStore.currentPage);
 const totalPages = computed(() => tableStore.totalPages);
@@ -12,15 +15,15 @@ const isLoading = computed(() => tableStore.isLoading);
 const headers = computed(() => {
   return tableStore?.data[0] ? Object.keys(dataAdaptor(tableData.value)[0]) : [];
 });
-
+//methods
 const fetchData = (page: number) => {
   tableStore.fetchData(page);
 };
-
+//lifecycle
 onMounted(() => {
   fetchData(1);
 });
-
+//methods
 function dataAdaptor(data: any) {
   return data.map((item: any, index: any) => {
     return {

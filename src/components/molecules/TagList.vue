@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed } from "vue";
+// components
 import CheckBox from "../atoms/CheckBox/CheckBox.vue";
-
+// props
 const props = defineProps<{ tags: string[]; modelValue: string[] }>();
+// emits
 const emit = defineEmits<{
   (e: "update:modelValue", value: string[]): void;
 }>();
-
+// computed
 const selectedTags = computed({
   get: () => props.modelValue,
   set: (value: string[]) => emit("update:modelValue", value),
 });
-
+//methids
 function toggleTagSelection(tagId: string, isChecked: boolean) {
   if (isChecked) {
     selectedTags.value = [...selectedTags.value, tagId];

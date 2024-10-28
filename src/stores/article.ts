@@ -1,20 +1,24 @@
+//utils
 import api from "@/services/api";
-import { articlePost } from "@/services/article";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+//types
+import type { articlePost } from "@/services/article";
 
 export const useArticleStore = defineStore("table", () => {
+  //data
   const data = ref<any>([]);
   const isLoading = ref(false);
   const currentPage = ref(1);
   const totalPages = ref(1);
   const tags = ref<string[]>([]);
-
+  //methods
   const fetchData = async (page: number = 1) => {
     isLoading.value = true;
     try {
       const response = await api.article.getArticles(page);
-      data.value = response.articles;  
+      data.value = response.articles;
+      // the backend does no provide a pagination so we hard code it...
       totalPages.value = 5;
       currentPage.value = page;
     } catch (error) {

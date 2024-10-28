@@ -23,16 +23,19 @@
 </template>
 
 <script lang="ts" setup>
+//utils
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
+//componets
 import AInput from "../../atoms/InputField/InputField.vue";
 import AButton from "../../atoms/Button/Button.vue";
-import { useAuthStore } from "@/stores/auth";
-
+//hooks
 const authStore = useAuthStore();
+//data
 const username = ref("");
 const password = ref("");
 const email = ref("");
-
+//methods
 async function handleSubmit() {
   await authStore.register(username.value, password.value, email.value);
 }

@@ -8,14 +8,13 @@ type ButtonVariant =
   | "light"
   | "dark"
   | "outline-primary"
-  | "outline-dark"
+  | "outline-dark";
 
 type ButtonSize = "sm" | "lg" | "";
 
 //*********** */
 //Note :  The js docs are generated with Ai
 //*********** */
-
 export interface buttonProps {
   /**
    * The variant of the button, determining its style.
@@ -28,11 +27,14 @@ export interface buttonProps {
    * @default ""
    */
   size?: ButtonSize;
-
   /**
    * Whether the button is disabled.
    * @default false
    */
   disabled?: boolean;
-  block?:boolean
+   /**
+   * Whether the button is full witdth.
+   * @default false
+   */
+  block?: boolean;
 }

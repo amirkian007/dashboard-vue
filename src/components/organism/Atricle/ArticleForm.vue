@@ -44,12 +44,14 @@
 </template>
 
 <script lang="ts" setup>
+//componets
 import { Button, InputField } from "@/components/atoms";
 import TextArea from "@/components/atoms/VtextArea/TextArea.vue";
 import TagList from "@/components/molecules/TagList.vue";
+//utils
 import { useArticleStore } from "@/stores/article";
 import { computed, onMounted, reactive, ref } from "vue";
-
+//types
 interface formeDate {
   data?: {
     title: string;
@@ -58,7 +60,7 @@ interface formeDate {
     tagList: string[];
   };
 }
-
+//props
 const props = withDefaults(defineProps<formeDate>(), {
   data: {
     //@ts-ignore
@@ -68,25 +70,28 @@ const props = withDefaults(defineProps<formeDate>(), {
     tagList: [],
   },
 });
-
+//hooks
+const articleStore = useArticleStore();
+//data
 const errors = ref(props.data);
 const tags = ref<string[]>([]);
 const selctedTag = ref("");
 const formData = reactive(props.data);
-const articleStore = useArticleStore();
-
+//emits
 const emit = defineEmits<{
   (e: "submit", data: formeDate["data"]): void;
 }>();
-
-function onTagEnter(ev:KeyboardEvent) {
-  ev.preventDefault()
+//computeds
+const computeedTags = computed(() => {
+  return [...articleStore.tags, ...tags.value];
+});
+//methods
+function onTagEnter(ev: KeyboardEvent) {
+  ev.preventDefault();
   const tag = selctedTag.value;
   tags.value = [...tags.value, tag];
   selctedTag.value = "";
 }
-
-
 async function handleSubmit() {
   const formDataas: formeDate["data"] = {
     title: formData.title,
@@ -94,15 +99,10 @@ async function handleSubmit() {
     body: formData.body,
     tagList: formData.tagList,
   };
-
   emit("submit", formDataas);
 }
-
+//lifecycle
 onMounted(() => {
   articleStore.getTags();
-});
-
-const computeedTags = computed(() => {
-  return [...articleStore.tags, ...tags.value];
 });
 </script>

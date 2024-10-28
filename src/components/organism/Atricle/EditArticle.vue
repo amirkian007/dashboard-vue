@@ -4,19 +4,22 @@
 </template>
 
 <script lang="ts" setup>
+//utils
 import { useArticleStore } from '@/stores/article';
-import ArticleForm from './ArticleForm.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
+//componetns
+import ArticleForm from './ArticleForm.vue';
+//types
 import { Article } from '@/services/article';
-
-const data = ref<Article>()
-const loading = ref(true)
-
+//hooks
 const route = useRoute()
 const router = useRouter();
 const store = useArticleStore()
-
+//data
+const data = ref<Article>()
+const loading = ref(true)
+//methods
 async function handleSubmit(formData: any) {
   const formDataas = {
     title: formData.title,
@@ -27,12 +30,12 @@ async function handleSubmit(formData: any) {
   await useArticleStore().updateArticle({ article: formDataas }, data.value?.slug!);
   router.push("/");
 }
-
 async function getArticle() {
   const article = await store.getArticle(route.params.slug as unknown as string)
   data.value = article.article
   loading.value = false
 }
+//lifecycle
 onMounted(() => {
   getArticle()
 })

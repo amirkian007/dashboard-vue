@@ -1,20 +1,23 @@
 
 <script lang="ts" setup>
 import { defineProps, defineEmits, useId } from "vue";
+//types
 import { CheckBoxProps } from "./CheckBox.types";
-
+//props
 const props = defineProps<CheckBoxProps>();
-
+//emits
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
+//hooks
+const id = useId()
 
+// methods
 function handleChange(event: Event) {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.checked);
 }
 
-const id = useId()
 
 </script>
 

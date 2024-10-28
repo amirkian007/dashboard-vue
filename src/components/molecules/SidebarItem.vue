@@ -8,11 +8,12 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue';
-
+// props
 const props = defineProps<{
   label: string;
   to: string;
 }>();
+
 </script>
 
 <style scoped>

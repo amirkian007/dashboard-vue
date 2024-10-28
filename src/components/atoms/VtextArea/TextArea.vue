@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed } from "vue";
+// types
 import { TextareaProps } from "./TextArea.types";
-
+//props
 const props = withDefaults(defineProps<TextareaProps>(), {
   label: "",
   placeholder: "",
@@ -9,19 +10,18 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   disabled: false,
   error: "",
 });
-
+//emits
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
-
+//computed
 const textareaId = computed(
   () => props.label?.replace(/\s+/g, "-").toLowerCase() || "textarea"
 );
-
 const sizeClass = computed(() =>
   props.size ? `form-control-${props.size}` : ""
 );
-
+//methods
 function handleInput(event: Event) {
   const target = event.target as HTMLTextAreaElement;
   emit("update:modelValue", target.value);

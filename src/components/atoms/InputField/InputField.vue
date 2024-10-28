@@ -1,8 +1,10 @@
 
 <script lang="ts" setup>
+//utils
 import { defineProps, defineEmits, computed } from "vue";
+//types
 import type {inputProps} from './input.types'
-
+//props
 const props = withDefaults(defineProps<inputProps>(),{
   type: "text",
   label: "",
@@ -11,20 +13,19 @@ const props = withDefaults(defineProps<inputProps>(),{
   disabled: false,
   error: "",
 });
-
+//emits
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
   (e: "enter",ev:KeyboardEvent ): void;
 }>();
-
+//computed
 const inputId = computed(
   () => props.label?.replace(/\s+/g, "-").toLowerCase() || "input"
 );
-
 const sizeClass = computed(() =>
   props.size ? `form-control-${props.size}` : ""
 );
-
+//methods
 function handleInput(event: Event) {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);

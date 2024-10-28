@@ -1,10 +1,12 @@
+//utils
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import Login from '../pages/Login.vue';
-import Register from '../pages/Register.vue';
+//componnets
+import Login from '@//pages/Login.vue';
+import Register from '@//pages/Register.vue';
 import NotFound from '@/pages/NotFound.vue';
 import DashboardTemplate from '@/components/templates/DashboardTemplate.vue';
-import DashBoard from '../pages/DashBoard.vue';
+import DashBoard from '@//pages/DashBoard.vue';
 import NewArticle from '@/pages/NewArticle.vue';
 import EditArticle from '@/pages/EditArticle.vue';
 
@@ -67,6 +69,6 @@ router.beforeEach((to, from, next) => {
     next();
   }
 
-});
+}); 
 
 export default router;

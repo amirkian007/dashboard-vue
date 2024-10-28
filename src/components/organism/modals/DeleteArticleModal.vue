@@ -1,25 +1,28 @@
 <script setup lang="ts">
+//componets
 import { Button } from "@/components/atoms";
 import Modal from "@/components/atoms/Modal/Modal.vue";
 import DropwDown from "@/components/molecules/DropwDown.vue";
+//types
 import type { Article } from "@/services/article";
+//utils
 import { useArticleStore } from "@/stores/article";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+//props
 const props = defineProps<{
   article: Article;
 }>();
+//hooks
 const router = useRouter()
-
+const store = useArticleStore()
+//data
 const items = [
   { name: "edit", type: "edit" },
   { name: "delete", type: "delete" },
 ]
-
 const ismodalOpen = ref(false);
-const store = useArticleStore()
-
+// methods
 async function itemClick(item: any) {
   if (item.type === "delete") {
     ismodalOpen.value = true;
@@ -27,7 +30,6 @@ async function itemClick(item: any) {
     router.push(`/editArticle/${props.article.slug}`)
   }
 }
-
 async function deleteModal() {
   await store.deleteArticleBySlug(props.article.slug)
 }
