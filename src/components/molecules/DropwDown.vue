@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import AButton from "../atoms/Button/Button.vue";
 
 const emit = defineEmits<{
   (e: "itemClick", item: any): void;
 }>();
-interface Item{
-    name: string;
+interface Item {
+  name: string;
 }
 const props = defineProps<{
   items: Item[];
@@ -19,13 +18,8 @@ const handleSelect = (item: any) => {
 
 <template>
   <div class="btn-group">
-    <AButton
-      type="button"
-      class="dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-       <slot />
+    <AButton type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <slot />
     </AButton>
     <ul class="dropdown-menu">
       <li v-for="item in props.items" @click="handleSelect(item)">

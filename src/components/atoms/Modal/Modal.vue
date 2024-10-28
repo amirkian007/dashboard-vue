@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, onMounted, ref, useId, watch } from "vue";
+import { defineProps, defineEmits, ref, useId, watch } from "vue";
+import { ModalProps } from "./Modal.types";
 // import * as bt from "bootstrap";
-const props = defineProps<{ title: string; modelValue: boolean }>();
+const props = defineProps<ModalProps>();
 
 const emit = defineEmits<{
   (e: "update:modelValue", v: boolean): void;
 }>();
 
-const refasda = ref<HTMLElement | null>(null);
-const refasdwaea = ref<HTMLElement | null>(null);
+const openModalBtn = ref<HTMLElement | null>(null);
+const closeModalBtn = ref<HTMLElement | null>(null);
 const myModalEl = ref<HTMLElement | null>(null);
 
 watch(
@@ -19,33 +20,30 @@ watch(
     }
   }
 );
+
 function showmODAL() {
-  refasda.value?.click();
+  openModalBtn.value?.click();
  
     myModalEl.value?.addEventListener('hidden.bs.modal', () => {
       emit('update:modelValue',false)
     })
 }
-// function hideModal() {
-//   refasdwaea.value?.click();
-//   emit('update:modelValue',false)
-// }
+
 const id = useId();
 
 </script>
 
 <template>
   <button
-    ref="refasda"
+    ref="openModalBtn"
     class="btn btn-primary d-none"
     :data-bs-target="`#${id}`"
     data-bs-toggle="modal"
   >
-    Open second modal
   </button>
 
   <button
-    ref="refasdwaea"
+    ref="closeModalBtn"
     type="button"
     class="btn-close d-none"
     data-bs-dismiss="modal"

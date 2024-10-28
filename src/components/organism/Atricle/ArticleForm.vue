@@ -48,7 +48,7 @@ import { Button, InputField } from "@/components/atoms";
 import TextArea from "@/components/atoms/VtextArea/TextArea.vue";
 import TagList from "@/components/molecules/TagList.vue";
 import { useArticleStore } from "@/stores/article";
-import { computed, onMounted, reactive, ref, watch } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 
 interface formeDate {
   data?: {
@@ -68,14 +68,16 @@ const props = withDefaults(defineProps<formeDate>(), {
     tagList: [],
   },
 });
-const formData = reactive(props.data);
-const emit = defineEmits<{
-  (e: "submit", data: formeDate["data"]): void;
-}>();
 
 const errors = ref(props.data);
 const tags = ref<string[]>([]);
 const selctedTag = ref("");
+const formData = reactive(props.data);
+const articleStore = useArticleStore();
+
+const emit = defineEmits<{
+  (e: "submit", data: formeDate["data"]): void;
+}>();
 
 function onTagEnter(ev:KeyboardEvent) {
   ev.preventDefault()
@@ -84,7 +86,6 @@ function onTagEnter(ev:KeyboardEvent) {
   selctedTag.value = "";
 }
 
-const articleStore = useArticleStore();
 
 async function handleSubmit() {
   const formDataas: formeDate["data"] = {

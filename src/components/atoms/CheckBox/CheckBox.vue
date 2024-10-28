@@ -1,9 +1,9 @@
-<!-- src/components/atoms/TagCheckbox.vue -->
+
 <script lang="ts" setup>
 import { defineProps, defineEmits, useId } from "vue";
+import { CheckBoxProps } from "./CheckBox.types";
 
-
-const props = defineProps<{ label: string; modelValue: boolean }>();
+const props = defineProps<CheckBoxProps>();
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
@@ -13,6 +13,7 @@ function handleChange(event: Event) {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.checked);
 }
+
 const id = useId()
 
 </script>

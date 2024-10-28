@@ -1,5 +1,5 @@
 import api from "@/services/api";
-import { Article, articlePost } from "@/services/article";
+import { articlePost } from "@/services/article";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 

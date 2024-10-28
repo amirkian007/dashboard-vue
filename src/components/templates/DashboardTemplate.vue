@@ -12,7 +12,7 @@ const isMenuOpen = ref(false)
 </script>
 
 <template>
-      <Header v-model="isMenuOpen" />
+  <Header v-model="isMenuOpen" />
   <div class="row vh-100">
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
       <Sidebar v-model="isMenuOpen"></Sidebar>

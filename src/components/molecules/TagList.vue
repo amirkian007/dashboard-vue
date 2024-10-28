@@ -1,4 +1,3 @@
-<!-- src/components/molecules/TagList.vue -->
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed } from "vue";
 import CheckBox from "../atoms/CheckBox/CheckBox.vue";

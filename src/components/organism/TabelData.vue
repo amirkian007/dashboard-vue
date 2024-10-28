@@ -21,17 +21,17 @@ onMounted(() => {
   fetchData(1);
 });
 
-function dataAdaptor(data:any){
-    return data.map((item:any,index:any)=>{
-        return {
-            '#':index + 1,
-            title:item.title,
-            author:item.author.username,
-            tags:item.tagList.join(', '),
-            excerpt:item.description,
-            created:new Date(item.createdAt).toDateString(),
-        }
-    })
+function dataAdaptor(data: any) {
+  return data.map((item: any, index: any) => {
+    return {
+      '#': index + 1,
+      title: item.title,
+      author: item.author.username,
+      tags: item.tagList.join(', '),
+      excerpt: item.description,
+      created: new Date(item.createdAt).toDateString(),
+    }
+  })
 }
 </script>
 
@@ -58,10 +58,6 @@ function dataAdaptor(data:any){
         </tbody>
       </table>
     </div>
-    <PaginationControls
-      :currentPage="currentPage"
-      :totalPages="totalPages"
-      @changePage="fetchData"
-    />
+    <PaginationControls :currentPage="currentPage" :totalPages="totalPages" @changePage="fetchData" />
   </div>
 </template>

@@ -1,14 +1,6 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed } from "vue";
-
-interface TextareaProps {
-  modelValue: string;
-  label?: string;
-  placeholder?: string;
-  size?: string;
-  disabled?: boolean;
-  error?: string;
-}
+import { TextareaProps } from "./TextArea.types";
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   label: "",
@@ -39,15 +31,8 @@ function handleInput(event: Event) {
 <template>
   <div class="mb-3 text-start">
     <label v-if="label" :for="textareaId" class="form-label">{{ label }}</label>
-    <textarea
-      :id="textareaId"
-      :value="modelValue"
-      :placeholder="placeholder"
-      :class="`form-control ${sizeClass}`"
-      :disabled="disabled"
-      @input="handleInput"
-      rows="4"
-    ></textarea>
+    <textarea :id="textareaId" :value="modelValue" :placeholder="placeholder" :class="`form-control ${sizeClass}`"
+      :disabled="disabled" @input="handleInput" rows="4"></textarea>
     <div v-if="error" class="invalid-feedback">
       {{ error }}
     </div>

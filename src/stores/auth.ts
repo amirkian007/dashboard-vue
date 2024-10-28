@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
       toast.success('Loged Inn')
       handelLoginResponse(response)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
       toast.success('Registered IN')
       handelLoginResponse(response)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

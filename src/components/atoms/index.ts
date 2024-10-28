@@ -1,2 +1,5 @@
 export * from './Button'
 export * from './InputField'
+export * from './CheckBox'
+export * from './Modal'
+export * from './VtextArea'
