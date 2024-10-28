@@ -1,17 +1,13 @@
-<template>
-    <ArticleForm @submit="handleSubmit"></ArticleForm>
-</template>
-
 <script lang="ts" setup>
 //utils
-import { useArticleStore } from '@/stores/article';
-import { useRouter } from 'vue-router';
+import { useArticleStore } from "@/stores/article";
+import { useRouter } from "vue-router";
 //components
-import ArticleForm from './ArticleForm.vue';
+import ArticleForm from "./ArticleForm.vue";
 //hooks
 const router = useRouter();
 //methods
-async function handleSubmit(formData:any) {
+async function handleSubmit(formData: any) {
   const formDataas = {
     title: formData.title,
     description: formData.description,
@@ -21,5 +17,7 @@ async function handleSubmit(formData:any) {
   await useArticleStore().postArticle({ article: formDataas });
   router.push("/");
 }
-
 </script>
+<template>
+  <ArticleForm @submit="handleSubmit"></ArticleForm>
+</template>

@@ -35,6 +35,7 @@ async function deleteModal() {
 }
 
 </script>
+
 <template>
   <DropwDown :items="items" @itemClick="itemClick">...</DropwDown>
   <Modal v-model="ismodalOpen" :title="`delete article '${props.article.title}'? `">

@@ -1,12 +1,3 @@
-<template>
-  <nav class="sidebar bg-primary h-100 pt-1" v-click-outside="closeItem"
-    :class="{ 'responisve-mode': isResponsive, 'menu-open': props.modelValue }">
-    <h4 class="m-3">Post</h4>
-    <SidebarItem @click="closeItem" label="All Articles" to="/" />
-    <SidebarItem @click="closeItem" label="New Article" to="/newArticle" />
-  </nav>
-</template>
-
 <script lang="ts" setup>
 // components
 import SidebarItem from "../molecules/SidebarItem.vue";
@@ -27,6 +18,15 @@ function closeItem() {
   }
 }
 </script>
+
+<template>
+  <nav class="sidebar bg-primary h-100 pt-1" v-click-outside="closeItem"
+    :class="{ 'responisve-mode': isResponsive, 'menu-open': props.modelValue }">
+    <h4 class="m-3">Post</h4>
+    <SidebarItem @click="closeItem" label="All Articles" to="/" />
+    <SidebarItem @click="closeItem" label="New Article" to="/newArticle" />
+  </nav>
+</template>
 
 <style scoped>
 .sidebar {

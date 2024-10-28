@@ -1,47 +1,3 @@
-<template>
-  <form @submit.prevent="handleSubmit">
-    <div class="row">
-      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-        <InputField
-          v-model="formData.title"
-          type="text"
-          label="title"
-          placeholder="Enter your title"
-          :error="errors.title"
-        />
-        <InputField
-          v-model="formData.description"
-          type="text"
-          label="discription"
-          placeholder="Enter your discription"
-          :error="errors.description"
-        />
-        <TextArea
-          label="body"
-          placeholder="Enter your body"
-          v-model="formData.body"
-        />
-      </div>
-      <div
-        class="col-lg-3 col-md-12 col-sm-12 col-xs-12 d-flex flex-column mb-3"
-      >
-        <InputField
-          v-model="selctedTag"
-          type="text"
-          label="Tags"
-          placeholder="Enter Tag"
-          @enter="onTagEnter"
-        />
-        <TagList v-model="formData.tagList" :tags="computeedTags" />
-      </div>
-    </div>
-    <div class="d-flex">
-      <Button type="submit" variant="primary" size="lg" :block="false">
-        Submit
-      </Button>
-    </div>
-  </form>
-</template>
 
 <script lang="ts" setup>
 //componets
@@ -106,3 +62,48 @@ onMounted(() => {
   articleStore.getTags();
 });
 </script>
+
+<template>
+  <form @submit.prevent="handleSubmit">
+    <div class="row">
+      <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <InputField
+          v-model="formData.title"
+          type="text"
+          label="title"
+          placeholder="Enter your title"
+          :error="errors.title"
+        />
+        <InputField
+          v-model="formData.description"
+          type="text"
+          label="discription"
+          placeholder="Enter your discription"
+          :error="errors.description"
+        />
+        <TextArea
+          label="body"
+          placeholder="Enter your body"
+          v-model="formData.body"
+        />
+      </div>
+      <div
+        class="col-lg-3 col-md-12 col-sm-12 col-xs-12 d-flex flex-column mb-3"
+      >
+        <InputField
+          v-model="selctedTag"
+          type="text"
+          label="Tags"
+          placeholder="Enter Tag"
+          @enter="onTagEnter"
+        />
+        <TagList v-model="formData.tagList" :tags="computeedTags" />
+      </div>
+    </div>
+    <div class="d-flex">
+      <Button type="submit" variant="primary" size="lg" :block="false">
+        Submit
+      </Button>
+    </div>
+  </form>
+</template>

@@ -1,22 +1,3 @@
-<template>
-  <form @submit.prevent="handleSubmit">
-    <AInput
-      v-model="formData.email"
-      type="email"
-      label="Email"
-      placeholder="Enter your email"
-      :error="errors.email"
-    />
-    <AInput
-      v-model="formData.password"
-      type="password"
-      label="Password"
-      placeholder="Enter your password"
-      :error="errors.password"
-    />
-    <AButton type="submit" variant="primary" size="lg"> Login </AButton>
-  </form>
-</template>
 
 <script lang="ts" setup>
 //utils
@@ -39,3 +20,24 @@ function handleSubmit() {
     useAuthStore().login(formData.value.email, formData.value.password);
 }
 </script>
+
+<template>
+  <form @submit.prevent="handleSubmit">
+    <AInput
+      v-model="formData.email"
+      type="email"
+      label="Email"
+      placeholder="Enter your email"
+      :error="errors.email"
+    />
+    <AInput
+      v-model="formData.password"
+      type="password"
+      label="Password"
+      placeholder="Enter your password"
+      :error="errors.password"
+    />
+    <AButton type="submit" variant="primary" size="lg"> Login </AButton>
+  </form>
+</template>
+

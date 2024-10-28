@@ -1,7 +1,3 @@
-<template>
-  <ArticleForm v-if="!loading" @submit="handleSubmit" :data="data"></ArticleForm>
-  <h2 v-else>Loading ...</h2>
-</template>
 
 <script lang="ts" setup>
 //utils
@@ -40,3 +36,8 @@ onMounted(() => {
   getArticle()
 })
 </script>
+
+<template>
+  <ArticleForm v-if="!loading" @submit="handleSubmit" :data="data"></ArticleForm>
+  <h2 v-else>Loading ...</h2>
+</template>
