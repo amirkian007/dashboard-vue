@@ -4,11 +4,11 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-//hooks
-const toast = useToast();
-const router = useRouter();
 
 export const useAuthStore = defineStore('auth', () => {
+  //hooks
+  const toast = useToast();
+  const router = useRouter();
   //data
   const token = ref<string | null>(localStorage.getItem('authToken'));
   const username = ref<string | null>(null);
