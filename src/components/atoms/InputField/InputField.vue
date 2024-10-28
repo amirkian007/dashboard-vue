@@ -1,22 +1,23 @@
-
 <script lang="ts" setup>
 //utils
 import { defineProps, defineEmits, computed } from "vue";
+import { vHighlight } from "../../../utils/v-validate";
 //types
-import type {inputProps} from './input.types'
+import type { inputProps } from "./input.types";
 //props
-const props = withDefaults(defineProps<inputProps>(),{
+const props = withDefaults(defineProps<inputProps>(), {
   type: "text",
   label: "",
   placeholder: "",
   size: "",
   disabled: false,
+  required: false,
   error: "",
 });
 //emits
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
-  (e: "enter",ev:KeyboardEvent ): void;
+  (e: "enter", ev: KeyboardEvent): void;
 }>();
 //computed
 const inputId = computed(
@@ -30,8 +31,8 @@ function handleInput(event: Event) {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);
 }
-function onEnter(e:KeyboardEvent){
-  emit("enter",e);
+function onEnter(e: KeyboardEvent) {
+  emit("enter", e);
 }
 </script>
 
@@ -47,9 +48,20 @@ function onEnter(e:KeyboardEvent){
       :disabled="disabled"
       @input="handleInput"
       @keydown.enter="onEnter"
+      :required="props.required"
+      v-highlight
     />
-    <div v-if="error" class="invalid-feedback">
+    <div class="invalid-feedback error-message d-none text-danger">
       {{ error }}
     </div>
   </div>
 </template>
+
+<style scoped>
+.input-blured:invalid {
+  border-color: red;
+}
+.input-blured:invalid ~ .error-message {
+  display: block !important;
+}
+</style>

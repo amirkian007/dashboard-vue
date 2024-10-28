@@ -6,7 +6,7 @@ import TextArea from "@/components/atoms/VtextArea/TextArea.vue";
 import TagList from "@/components/molecules/TagList.vue";
 //utils
 import { useArticleStore } from "@/stores/article";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted , ref, watch } from "vue";
 //types
 interface formeDate {
   data?: {
@@ -31,11 +31,10 @@ const props = withDefaults(defineProps<formeDate>(), {
 //hooks
 const articleStore = useArticleStore();
 //data
-const errors = ref(props.data);
 const tags = ref<string[]>([]);
 const selctedTag = ref("");
- 
-const formData = reactive(props.data);
+const formData = ref(props.data);
+
 //emits
 const emit = defineEmits<{
   (e: "submit", data: formeDate["data"]): void;
@@ -53,10 +52,10 @@ function onTagEnter(ev: KeyboardEvent) {
 }
 async function handleSubmit() {
   const formDataas: formeDate["data"] = {
-    title: formData.title,
-    description: formData.description,
-    body: formData.body,
-    tagList: formData.tagList,
+    title: formData.value.title,
+    description: formData.value.description,
+    body: formData.value.body,
+    tagList: formData.value.tagList,
   };
   emit("submit", formDataas);
 }
@@ -64,6 +63,10 @@ async function handleSubmit() {
 onMounted(() => {
   articleStore.getTags();
 });
+//watchers 
+watch(()=>props.data,(v)=>{
+  formData.value = v
+})
 </script>
 
 <template>
@@ -75,19 +78,23 @@ onMounted(() => {
           type="text"
           label="title"
           placeholder="Enter your title"
-          :error="errors.title"
+          error="title is required"
+          required
         />
         <InputField
           v-model="formData.description"
           type="text"
           label="discription"
-          placeholder="Enter your discription"
-          :error="errors.description"
+          placeholder="discription"
+          error="discription is required"
+          required
         />
         <TextArea
           label="body"
           placeholder="Enter your body"
           v-model="formData.body"
+          error="body is required"
+          required
         />
       </div>
       <div

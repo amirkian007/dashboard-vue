@@ -35,4 +35,9 @@ export interface TextareaProps {
    * Error message to display when there’s a validation error.
    */
   error?: string;
+  /**
+   * is input required.
+   */
+  required?: boolean;
+    
 }

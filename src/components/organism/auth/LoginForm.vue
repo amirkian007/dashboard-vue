@@ -11,10 +11,6 @@ const formData = ref({
   email: "",
   password: "",
 });
-const errors = ref({
-  email: "",
-  password: "",
-});
 const isLoading = ref(false)
 //methods
 async function handleSubmit() {
@@ -35,14 +31,16 @@ async function handleSubmit() {
       type="email"
       label="Email"
       placeholder="Enter your email"
-      :error="errors.email"
+      error="email is not valid"
+      required
     />
     <AInput
       v-model="formData.password"
       type="password"
       label="Password"
       placeholder="Enter your password"
-      :error="errors.password"
+      error="password is not valid"
+      required
     />
     <AButton type="submit" variant="primary" size="lg" :disabled="isLoading"> Login </AButton>
   </form>

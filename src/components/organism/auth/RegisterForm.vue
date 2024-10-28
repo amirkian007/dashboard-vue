@@ -32,18 +32,24 @@ async function handleSubmit() {
       type="text"
       label="Username"
       placeholder="Enter username"
+      error="username is not valid"
+      required
     />
     <AInput
       v-model="password"
       type="password"
       label="Password"
       placeholder="Enter password"
+      error="password is not valid"
+      required
     />
     <AInput
       v-model="email"
       type="email"
       label="Email"
       placeholder="Enter email"
+      error="email is not valid"
+      required
     />
     <AButton type="submit" variant="primary" size="lg" :disabled="isLoading"> Register </AButton>
   </form>

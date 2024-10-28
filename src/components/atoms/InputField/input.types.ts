@@ -36,4 +36,8 @@ export interface inputProps {
    * The error message displayed for the input.
    */
   error?: string;
+  /**
+   * is input required.
+   */
+  required?: boolean;
 }

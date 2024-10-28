@@ -45,5 +45,4 @@ onMounted(() => {
 
 <template>
   <ArticleForm :loading="loading" @submit="handleSubmit" :data="data"></ArticleForm>
-   
 </template>
