@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 //utils
 import { ref } from "vue";
+import { vValidateform } from "@/utils/v-validate";
 import { useAuthStore } from "@/stores/auth";
 //componets
 import AInput from "../../atoms/InputField/InputField.vue";
@@ -26,7 +27,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form v-validateform @submit.prevent="handleSubmit">
     <AInput
       v-model="username"
       type="text"

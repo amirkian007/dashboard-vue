@@ -7,6 +7,7 @@ import TagList from "@/components/molecules/TagList.vue";
 //utils
 import { useArticleStore } from "@/stores/article";
 import { computed, onMounted , ref, watch } from "vue";
+import { vValidateform } from "@/utils/v-validate";
 //types
 interface formeDate {
   data?: {
@@ -75,7 +76,7 @@ watch(()=>props.data,(v)=>{
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form v-validateform @submit.prevent="handleSubmit">
     <div class="row">
       <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <InputField

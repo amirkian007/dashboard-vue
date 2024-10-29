@@ -3,6 +3,7 @@
 //utils
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
+import { vValidateform } from "@/utils/v-validate";
 //components
 import AInput from "../../atoms/InputField/InputField.vue";
 import AButton from "../../atoms/Button/Button.vue";
@@ -25,7 +26,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form v-validateform @submit.prevent="handleSubmit">
     <AInput
       v-model="formData.email"
       type="email"

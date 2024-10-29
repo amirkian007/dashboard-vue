@@ -43,14 +43,6 @@ function handleInput(event: Event) {
       </div>
   </div>
 </template>
-<style scoped>
-.input-blured:invalid {
-  border-color: red;
-}
-.input-blured:invalid ~ .error-message {
-  display: block !important;
-}
-.form-label:has(+ .input-blured:invalid) {
-  color: red;
-}
+<style lang="scss">
+ @import url('@/styles/invalidFormControll.scss');
 </style>

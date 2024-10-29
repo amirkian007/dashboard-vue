@@ -1,0 +1,14 @@
+.input-blured:invalid,
+.form-validate .form-control:invalid {
+  border-color: red;
+}
+
+.input-blured:invalid ~ .error-message,
+.form-validate .form-control:invalid ~ .error-message {
+  display: block !important;
+}
+
+.form-label:has(+ .input-blured:invalid),
+.form-validate .form-label:has(+ .form-control:invalid) {
+  color: red;
+}

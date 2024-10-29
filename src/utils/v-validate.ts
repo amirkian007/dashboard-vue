@@ -17,3 +17,16 @@ export const vHighlight: Directive = {
     });
   },
 };
+export const vValidateform: Directive = {
+  mounted(form:HTMLElement) {
+    const onBlur = () => {
+      form.classList.add("form-validate");
+    };
+    const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+    submitButton?.addEventListener("click", onBlur);
+
+    onUnmounted(() => {
+      submitButton?.removeEventListener("click", onBlur);
+    });
+  },
+};
