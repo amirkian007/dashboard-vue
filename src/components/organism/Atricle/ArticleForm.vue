@@ -33,7 +33,8 @@ const articleStore = useArticleStore();
 //data
 const tags = ref<string[]>([]);
 const selctedTag = ref("");
-const formData = ref(props.data);
+const defaultForm = {...props.data}
+const formData = ref(defaultForm);
 
 //emits
 const emit = defineEmits<{
@@ -59,13 +60,17 @@ async function handleSubmit() {
   };
   emit("submit", formDataas);
 }
+function resetForm(data:typeof props.data){
+  formData.value = data
+}
 //lifecycle
 onMounted(() => {
   articleStore.getTags();
+  resetForm(defaultForm)
 });
 //watchers 
 watch(()=>props.data,(v)=>{
-  formData.value = v
+  resetForm(v)
 })
 </script>
 

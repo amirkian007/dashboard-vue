@@ -39,7 +39,7 @@ function dataAdaptor(data: any) {
 </script>
 
 <template>
-  <div>
+  <div v-if="headers.length">
     <h2 v-if="isLoading">Loading ...</h2>
     <div v-else class="table-responsive">
       <table class="table table table-hover">
@@ -63,4 +63,11 @@ function dataAdaptor(data: any) {
     </div>
     <PaginationControls :currentPage="currentPage" :totalPages="totalPages" @changePage="fetchData" />
   </div>
+  <h2 v-else>NO data </h2>
 </template>
+
+<style>
+.table-responsive{
+  min-height: 200px;
+}
+</style>

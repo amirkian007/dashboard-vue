@@ -64,4 +64,7 @@ function onEnter(e: KeyboardEvent) {
 .input-blured:invalid ~ .error-message {
   display: block !important;
 }
+.form-label:has(+ .input-blured:invalid) {
+  color: red;
+}
 </style>
