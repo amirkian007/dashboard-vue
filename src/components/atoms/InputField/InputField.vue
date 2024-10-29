@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 //utils
 import { defineProps, defineEmits, computed } from "vue";
-import { vHighlight } from "../../../utils/v-validate";
+import { vValidateinput } from "../../../utils/v-validate";
 //types
 import type { inputProps } from "./input.types";
 //props
@@ -49,7 +49,7 @@ function onEnter(e: KeyboardEvent) {
       @input="handleInput"
       @keydown.enter="onEnter"
       :required="props.required"
-      v-highlight
+      v-validateinput
     />
     <div class="invalid-feedback error-message d-none text-danger">
       {{ error }}
@@ -57,14 +57,6 @@ function onEnter(e: KeyboardEvent) {
   </div>
 </template>
 
-<style scoped>
-.input-blured:invalid {
-  border-color: red;
-}
-.input-blured:invalid ~ .error-message {
-  display: block !important;
-}
-.form-label:has(+ .input-blured:invalid) {
-  color: red;
-}
+<style lang="scss">
+ @import url('@/styles/invalidFormControll.scss');
 </style>

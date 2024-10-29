@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed } from "vue";
-import { vHighlight } from "../../../utils/v-validate";
+import { vValidateinput } from "../../../utils/v-validate";
 // types
 import { TextareaProps } from "./TextArea.types";
 //props
@@ -35,7 +35,7 @@ function handleInput(event: Event) {
     <label v-if="label" :for="textareaId" class="form-label">{{ label }}</label>
     <textarea :id="textareaId" :value="modelValue" :placeholder="placeholder" :class="`form-control ${sizeClass}`"
       :disabled="disabled" @input="handleInput" rows="4" 
-      v-highlight
+      v-validateinput
       :required="props.required"
       ></textarea>
       <div class="invalid-feedback error-message d-none text-danger">

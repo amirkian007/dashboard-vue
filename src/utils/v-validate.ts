@@ -1,6 +1,6 @@
 import { onUnmounted, Directive } from "vue";
 
-export const vHighlight: Directive = {
+export const vValidateinput: Directive = {
   mounted(el) {
     const onBlur = () => {
       if (!el.checkValidity()) {
