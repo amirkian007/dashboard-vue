@@ -50,6 +50,7 @@ function onTagEnter(ev: KeyboardEvent) {
   ev.preventDefault();
   const tag = selctedTag.value;
   tags.value = [...tags.value, tag];
+  formData.value.tagList = [...formData.value.tagList,tag]
   selctedTag.value = "";
 }
 async function handleSubmit() {
