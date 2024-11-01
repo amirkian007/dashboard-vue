@@ -1,31 +1,32 @@
 <script setup lang="ts">
 //utils
-import { useArticleStore } from "@/stores/article";
-import { computed, onMounted, ref } from "vue";
+import { useArticleStore } from '@/stores/article'
+import { computed, onMounted, ref } from 'vue'
 //components
-import PaginationControls from "../molecules/PaginationButton.vue";
-import DeleteArticleModal from "./modals/DeleteArticleModal.vue";
+import PaginationControls from '../molecules/PaginationButton.vue'
+import DeleteArticleModal from './modals/DeleteArticleModal.vue'
+import { Article } from '@/services/article'
 //hooks
-const tableStore = useArticleStore();
+const tableStore = useArticleStore()
 //computed
-const tableData = computed(() => tableStore.data);
-const currentPage = computed(() => tableStore.currentPage);
-const totalPages = computed(() => tableStore.totalPages);
-const isLoading = computed(() => tableStore.isLoading);
+const tableData = computed(() => tableStore.data)
+const currentPage = computed(() => tableStore.currentPage)
+const totalPages = computed(() => tableStore.totalPages)
+const isLoading = computed(() => tableStore.isLoading)
 const headers = computed(() => {
-  return tableStore?.data[0] ? Object.keys(dataAdaptor(tableData.value)[0]) : [];
-});
+  return tableStore?.data[0] ? Object.keys(dataAdaptor(tableData.value)[0]) : []
+})
 //methods
 const fetchData = (page: number) => {
-  tableStore.fetchData(page);
-};
+  tableStore.fetchData(page)
+}
 //lifecycle
 onMounted(() => {
-  fetchData(1);
-});
+  fetchData(1)
+})
 //methods
-function dataAdaptor(data: any) {
-  return data.map((item: any, index: any) => {
+function dataAdaptor(data: Article[]) {
+  return data.map((item, index) => {
     return {
       '#': index + 1,
       title: item.title,
@@ -43,9 +44,13 @@ function dataAdaptor(data: any) {
     <h2 v-if="isLoading">Loading ...</h2>
     <div v-else class="table-responsive">
       <table class="table table table-hover">
-        <thead class="thead-dark ">
+        <thead class="thead-dark">
           <tr>
-            <th class="text-bg-secondary" v-for="(header, index) in headers" :key="index">
+            <th
+              class="text-bg-secondary"
+              v-for="(header, index) in headers"
+              :key="index"
+            >
               {{ header }}
             </th>
             <th class="text-bg-secondary"></th>
@@ -61,13 +66,17 @@ function dataAdaptor(data: any) {
         </tbody>
       </table>
     </div>
-    <PaginationControls :currentPage="currentPage" :totalPages="totalPages" @changePage="fetchData" />
+    <PaginationControls
+      :currentPage="currentPage"
+      :totalPages="totalPages"
+      @changePage="fetchData"
+    />
   </div>
-  <h2 v-else>NO data </h2>
+  <h2 v-else>NO data</h2>
 </template>
 
 <style>
-.table-responsive{
+.table-responsive {
   min-height: 200px;
 }
 </style>

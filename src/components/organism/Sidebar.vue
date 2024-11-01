@@ -1,34 +1,34 @@
 <script lang="ts" setup>
 // components
-import { onMounted, onUnmounted, ref } from "vue";
-import SidebarItem from "../molecules/SidebarItem.vue";
+import { onMounted, onUnmounted, ref } from 'vue'
+import SidebarItem from '../molecules/SidebarItem.vue'
 // props
 const props = withDefaults(defineProps<{ modelValue: boolean }>(), {
   modelValue: false,
-});
+})
 //emits
 const emit = defineEmits<{
-  (e: "update:modelValue", v: any): void;
-}>();
+  (e: 'update:modelValue', v: boolean): void
+}>()
 //data
-const isResponsive = ref(true);
+const isResponsive = ref(true)
 //methods
 function closeItem() {
   if (props.modelValue) {
-    emit("update:modelValue", false);
+    emit('update:modelValue', false)
   }
 }
-function windowResizerListner(){
-  isResponsive.value = innerWidth < 992;
-};
+function windowResizerListner() {
+  isResponsive.value = innerWidth < 992
+}
 //lifecycle
 onMounted(() => {
   windowResizerListner()
-  window.addEventListener("resize", windowResizerListner);
-});
+  window.addEventListener('resize', windowResizerListner)
+})
 onUnmounted(() => {
-  window.removeEventListener("resize", windowResizerListner);
-});
+  window.removeEventListener('resize', windowResizerListner)
+})
 </script>
 
 <template>

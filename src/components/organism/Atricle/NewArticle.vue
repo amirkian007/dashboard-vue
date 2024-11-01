@@ -1,29 +1,29 @@
 <script lang="ts" setup>
 //utils
-import { useArticleStore } from "@/stores/article";
-import { useRouter } from "vue-router";
+import { useArticleStore } from '@/stores/article'
+import { useRouter } from 'vue-router'
 //components
-import ArticleForm from "./ArticleForm.vue";
-import { ref } from "vue";
+import ArticleForm from './ArticleForm.vue'
+import { ref } from 'vue'
+import { ArticleFormData } from './article.types'
 //hooks
-const router = useRouter();
-//data 
+const router = useRouter()
+//data
 const loading = ref(false)
 //methods
-async function handleSubmit(formData: any) {
-  try{
+async function handleSubmit(formData: ArticleFormData) {
+  try {
     const formDataas = {
       title: formData.title,
       description: formData.description,
       body: formData.body,
       tagList: formData.tagList,
-    };
+    }
     loading.value = true
-    await useArticleStore().postArticle({ article: formDataas });
+    await useArticleStore().postArticle({ article: formDataas })
     loading.value = false
-    router.push("/");
-
-  }catch(err){
+    router.push('/')
+  } catch (err) {
     console.error(err)
   }
 }

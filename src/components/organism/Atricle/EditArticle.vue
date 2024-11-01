@@ -1,34 +1,37 @@
-
 <script lang="ts" setup>
 //utils
-import { useArticleStore } from '@/stores/article';
-import { useRoute, useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { useArticleStore } from '@/stores/article'
+import { useRoute, useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
 //componetns
-import ArticleForm from './ArticleForm.vue';
+import ArticleForm from './ArticleForm.vue'
 //types
-import { Article } from '@/services/article';
+import { Article } from '@/services/article'
+import { ArticleFormData } from './article.types'
 //hooks
 const route = useRoute()
-const router = useRouter();
+const router = useRouter()
 const store = useArticleStore()
 //data
 const data = ref<Article>()
 const loading = ref(true)
 //methods
-async function handleSubmit(formData: any) {
-  try{
+async function handleSubmit(formData: ArticleFormData) {
+  try {
     const formDataas = {
       title: formData.title,
       description: formData.description,
       body: formData.body,
       tagList: formData.tagList,
-    };
+    }
     loading.value = true
-    await useArticleStore().updateArticle({ article: formDataas }, data.value?.slug!);
+    await useArticleStore().updateArticle(
+      { article: formDataas },
+      data.value?.slug!,
+    )
     loading.value = false
-    router.push("/");
-  }catch(err){
+    router.push('/')
+  } catch (err) {
     console.error(err)
   }
 }
@@ -44,5 +47,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <ArticleForm :loading="loading" @submit="handleSubmit" :data="data"></ArticleForm>
+  <ArticleForm
+    :loading="loading"
+    @submit="handleSubmit"
+    :data="data"
+  ></ArticleForm>
 </template>

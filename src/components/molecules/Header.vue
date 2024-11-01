@@ -1,23 +1,23 @@
 <script lang="ts" setup>
 // utils
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from '@/stores/auth'
 // componetns
-import { Button } from "../atoms";
+import { Button } from '../atoms'
 //hooks
-const store = useAuthStore();
+const store = useAuthStore()
 //props
 const props = withDefaults(defineProps<{ modelValue: boolean }>(), {
   modelValue: false,
-});
+})
 //emits
 const emit = defineEmits<{
-  (e: "update:modelValue", v: any): void;
-}>();
+  (e: 'update:modelValue', v: boolean): void
+}>()
 //methods
 function modelValuClick() {
   setTimeout(() => {
-    emit("update:modelValue", true);
-  });
+    emit('update:modelValue', true)
+  })
 }
 </script>
 

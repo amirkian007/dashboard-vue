@@ -1,27 +1,33 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends DropItem">
 //components
-import AButton from "../atoms/Button/Button.vue";
+import AButton from '../atoms/Button/Button.vue'
 //types
-interface Item {
-  name: string;
+export interface DropItem {
+  name: string
+  [key: string]: any
 }
 //emits
 const emit = defineEmits<{
-  (e: "itemClick", item: any): void;
-}>();
+  (e: 'itemClick', item: T): void
+}>()
 //props
 const props = defineProps<{
-  items: Item[];
-}>();
+  items: T[]
+}>()
 //methods
-const handleSelect = (item: any) => {
-  emit("itemClick", item)
-};
+const handleSelect = (item: T) => {
+  emit('itemClick', item)
+}
 </script>
 
 <template>
   <div class="btn-group">
-    <AButton type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <AButton
+      type="button"
+      class="dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
       <slot />
     </AButton>
     <ul class="dropdown-menu">

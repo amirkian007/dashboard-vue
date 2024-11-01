@@ -1,34 +1,32 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits, computed } from "vue";
+import { defineProps, defineEmits, computed } from 'vue'
 // components
-import CheckBox from "../atoms/CheckBox/CheckBox.vue";
-import { Sorter } from "@/utils/sortAlph";
+import CheckBox from '../atoms/CheckBox/CheckBox.vue'
+import { Sorter } from '@/utils/sortAlph'
 // props
-const props = defineProps<{ tags: string[]; modelValue: string[] }>();
+const props = defineProps<{ tags: string[]; modelValue: string[] }>()
 //data
 const sorter = new Sorter('asc')
 // emits
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string[]): void;
-}>();
+  (e: 'update:modelValue', value: string[]): void
+}>()
 // computed
 const selectedTags = computed({
   get: () => props.modelValue,
-  set: (value: string[]) => emit("update:modelValue", value),
-});
-const tagsSorted = computed(()=>{
+  set: (value: string[]) => emit('update:modelValue', value),
+})
+const tagsSorted = computed(() => {
   return sorter.sort(props.tags)
 })
 //methids
 function toggleTagSelection(tagId: string, isChecked: boolean) {
   if (isChecked) {
-    selectedTags.value = [...selectedTags.value, tagId];
+    selectedTags.value = [...selectedTags.value, tagId]
   } else {
-    selectedTags.value = selectedTags.value.filter((id) => id !== tagId);
+    selectedTags.value = selectedTags.value.filter(id => id !== tagId)
   }
- 
 }
-
 </script>
 
 <template>
@@ -38,7 +36,9 @@ function toggleTagSelection(tagId: string, isChecked: boolean) {
       :key="tag"
       :label="tag"
       :modelValue="selectedTags.includes(tag)"
-      @update:modelValue="(checked:any) => toggleTagSelection(tag, checked)"
+      @update:modelValue="
+        (checked: boolean) => toggleTagSelection(tag, checked)
+      "
     />
   </div>
 </template>

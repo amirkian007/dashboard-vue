@@ -1,79 +1,74 @@
-
 <script lang="ts" setup>
 //componets
-import { Button, InputField } from "@/components/atoms";
-import TextArea from "@/components/atoms/VtextArea/TextArea.vue";
-import TagList from "@/components/molecules/TagList.vue";
+import { Button, InputField } from '@/components/atoms'
+import TextArea from '@/components/atoms/VtextArea/TextArea.vue'
+import TagList from '@/components/molecules/TagList.vue'
 //utils
-import { useArticleStore } from "@/stores/article";
-import { computed, onMounted , ref, watch } from "vue";
-import { vValidateform } from "@/utils/v-validate";
+import { useArticleStore } from '@/stores/article'
+import { computed, onMounted, ref, watch } from 'vue'
+import { vValidateform } from '@/utils/v-validate'
+import { ArticleFormData, ArticleFormProps } from './article.types'
 //types
-interface formeDate {
-  data?: {
-    title: string;
-    description: string;
-    body: string;
-    tagList: string[];
-  };
-  loading:boolean
-}
+
 //props
-const props = withDefaults(defineProps<formeDate>(), {
+const props = withDefaults(defineProps<ArticleFormProps>(), {
   data: {
     //@ts-ignore
-    title: "",
-    description: "",
-    body: "",
+    title: '',
+    description: '',
+    body: '',
     tagList: [],
   },
-  loading:false
-});
+  loading: false,
+})
 //hooks
-const articleStore = useArticleStore();
+const articleStore = useArticleStore()
 //data
-const tags = ref<string[]>([]);
-const selctedTag = ref("");
-const defaultForm = {...props.data}
-const formData = ref(defaultForm);
+const tags = ref<string[]>([])
+const selctedTag = ref('')
+const defaultForm = { ...props.data }
+const formData = ref(defaultForm)
 
 //emits
 const emit = defineEmits<{
-  (e: "submit", data: formeDate["data"]): void;
-}>();
+  (e: 'submit', data: ArticleFormData): void
+}>()
 //computeds
 const computeedTags = computed(() => {
-  return [...articleStore.tags, ...tags.value];
-});
+  return [...articleStore.tags, ...tags.value]
+})
 //methods
 function onTagEnter(ev: KeyboardEvent) {
-  ev.preventDefault();
-  const tag = selctedTag.value;
-  tags.value = [...tags.value, tag];
-  formData.value.tagList = [...formData.value.tagList,tag]
-  selctedTag.value = "";
+  ev.preventDefault()
+  const tag = selctedTag.value
+  tags.value = [...tags.value, tag]
+  formData.value.tagList = [...formData.value.tagList, tag]
+  selctedTag.value = ''
 }
 async function handleSubmit() {
-  const formDataas: formeDate["data"] = {
+  const formDataas: ArticleFormData = {
     title: formData.value.title,
     description: formData.value.description,
     body: formData.value.body,
     tagList: formData.value.tagList,
-  };
-  emit("submit", formDataas);
+  }
+  emit('submit', formDataas)
 }
-function resetForm(data:typeof props.data){
+function resetForm(data: typeof props.data) {
   formData.value = data
 }
 //lifecycle
 onMounted(() => {
-  articleStore.getTags();
+  articleStore.getTags()
   resetForm(defaultForm)
-});
-//watchers 
-watch(()=>props.data,(v)=>{
-  resetForm(v)
 })
+//watchers
+watch(
+  () => props.data,
+  v => {
+    resetForm(v)
+  },
+)
 </script>
 
 <template>
@@ -118,7 +113,13 @@ watch(()=>props.data,(v)=>{
       </div>
     </div>
     <div class="d-flex">
-      <Button type="submit" variant="primary" size="lg" :block="false" :disabled="props.loading">
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        :block="false"
+        :disabled="props.loading"
+      >
         Submit
       </Button>
     </div>
