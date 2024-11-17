@@ -6,6 +6,7 @@ import { computed, onMounted, ref } from 'vue'
 import PaginationControls from '../molecules/PaginationButton.vue'
 import DeleteArticleModal from './modals/DeleteArticleModal.vue'
 import { Article } from '@/services/article'
+import router from '@/router/router'
 //hooks
 const tableStore = useArticleStore()
 //computed
@@ -16,6 +17,7 @@ const isLoading = computed(() => tableStore.isLoading)
 const headers = computed(() => {
   return tableStore?.data[0] ? Object.keys(dataAdaptor(tableData.value)[0]) : []
 })
+
 //methods
 const fetchData = (page: number) => {
   tableStore.fetchData(page)
@@ -36,6 +38,14 @@ function dataAdaptor(data: Article[]) {
       created: new Date(item.createdAt).toDateString(),
     }
   })
+}
+
+async function itemEdit(slug: string) {
+  router.push(`/editArticle/${slug}`)
+}
+
+async function deleteModal(slug: string) {
+  await tableStore.deleteArticleBySlug(slug)
 }
 </script>
 
@@ -60,7 +70,11 @@ function dataAdaptor(data: Article[]) {
           <tr v-for="(row, index) in dataAdaptor(tableData)">
             <td v-for="(value, key) in row" :key="key">{{ value }}</td>
             <td>
-              <DeleteArticleModal :article="tableData[index]" />
+              <DeleteArticleModal
+                @delete="deleteModal"
+                @edit="itemEdit"
+                :article="tableData[index]"
+              />
             </td>
           </tr>
         </tbody>

@@ -1,21 +1,22 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits } from "vue";
+//utils
+import { defineProps, defineEmits } from 'vue'
 // types
-import type {buttonProps} from './Button.types.ts'
+import type { buttonProps } from './Button.types.ts'
 //props
-const props = withDefaults(defineProps<buttonProps>(),{
-  variant: "primary",
-  size: "",
+const props = withDefaults(defineProps<buttonProps>(), {
+  variant: 'primary',
+  size: '',
   disabled: false,
   block: true,
 })
 //emits
 const emit = defineEmits<{
-  (e: "click", event: MouseEvent): void;
-}>();
+  (e: 'click', event: MouseEvent): void
+}>()
 //methods
 function handleClick(event: MouseEvent) {
-  emit("click", event);
+  emit('click', event)
 }
 </script>
 <template>

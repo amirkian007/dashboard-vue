@@ -4,7 +4,7 @@ import { useArticleStore } from '@/stores/article'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 //componetns
-import ArticleForm from './ArticleForm.vue'
+import ArticleFormContainer from './ArticleFormContainer.vue'
 //types
 import { Article } from '@/services/article'
 import { ArticleFormData } from './article.types'
@@ -24,6 +24,7 @@ async function handleSubmit(formData: ArticleFormData) {
       body: formData.body,
       tagList: formData.tagList,
     }
+    // TODO: handel loading logic in store
     loading.value = true
     await useArticleStore().updateArticle(
       { article: formDataas },
@@ -47,9 +48,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <ArticleForm
+  <ArticleFormContainer
     :loading="loading"
     @submit="handleSubmit"
     :data="data"
-  ></ArticleForm>
+  ></ArticleFormContainer>
 </template>

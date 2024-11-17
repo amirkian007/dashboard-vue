@@ -1,101 +1,69 @@
 <script lang="ts" setup>
-//componets
 import { Button, InputField } from '@/components/atoms'
 import TextArea from '@/components/atoms/VtextArea/TextArea.vue'
 import TagList from '@/components/molecules/TagList.vue'
-//utils
-import { useArticleStore } from '@/stores/article'
-import { computed, onMounted, ref, watch } from 'vue'
+import { ArticleFormData } from './article.types'
+import { computed, ref } from 'vue'
 import { vValidateform } from '@/utils/v-validate'
-import { ArticleFormData, ArticleFormProps } from './article.types'
-//types
 
-//props
-const props = withDefaults(defineProps<ArticleFormProps>(), {
-  data: {
-    //@ts-ignore
-    title: '',
-    description: '',
-    body: '',
-    tagList: [],
-  },
-  loading: false,
-})
-//hooks
-const articleStore = useArticleStore()
-//data
-const tags = ref<string[]>([])
-const selctedTag = ref('')
-const defaultForm = { ...props.data }
-const formData = ref(defaultForm)
-
-//emits
-const emit = defineEmits<{
-  (e: 'submit', data: ArticleFormData): void
+const selectedTag = ref('')
+const props = defineProps<{
+  modelValue: ArticleFormData
+  computedTags: string[]
+  loading: boolean
 }>()
-//computeds
-const computeedTags = computed(() => {
-  return [...articleStore.tags, ...tags.value]
+const tags = ref<string[]>([])
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: ArticleFormData): void
+  (e: 'submit'): void
+}>()
+
+const formData = computed({
+  get: () => props.modelValue,
+  set: value => emit('update:modelValue', value),
 })
-//methods
+const computeedTags = computed(() => {
+  return [...props.computedTags, ...tags.value]
+})
 function onTagEnter(ev: KeyboardEvent) {
   ev.preventDefault()
-  const tag = selctedTag.value
+  const tag = selectedTag.value
   tags.value = [...tags.value, tag]
   formData.value.tagList = [...formData.value.tagList, tag]
-  selctedTag.value = ''
+  selectedTag.value = ''
 }
-async function handleSubmit() {
-  const formDataas: ArticleFormData = {
-    title: formData.value.title,
-    description: formData.value.description,
-    body: formData.value.body,
-    tagList: formData.value.tagList,
-  }
-  emit('submit', formDataas)
+
+function onSubmit() {
+  emit('submit')
 }
-function resetForm(data: typeof props.data) {
-  formData.value = data
-}
-//lifecycle
-onMounted(() => {
-  articleStore.getTags()
-  resetForm(defaultForm)
-})
-//watchers
-watch(
-  () => props.data,
-  v => {
-    resetForm(v)
-  },
-)
 </script>
 
 <template>
-  <form v-validateform @submit.prevent="handleSubmit">
+  <form @submit.prevent="onSubmit" v-validateform>
     <div class="row">
       <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <InputField
           v-model="formData.title"
           type="text"
-          label="title"
+          label="Title"
           placeholder="Enter your title"
-          error="title is required"
+          error="Title is required"
           required
         />
         <InputField
           v-model="formData.description"
           type="text"
-          label="discription"
-          placeholder="discription"
-          error="discription is required"
+          label="Description"
+          placeholder="Enter your description"
+          error="Description is required"
           required
         />
         <TextArea
-          label="body"
+          label="Body"
           placeholder="Enter your body"
           v-model="formData.body"
-          error="body is required"
+          error="Body is required"
           required
         />
       </div>
@@ -103,11 +71,11 @@ watch(
         class="col-lg-3 col-md-12 col-sm-12 col-xs-12 d-flex flex-column mb-3"
       >
         <InputField
-          v-model="selctedTag"
+          v-model="selectedTag"
           type="text"
           label="Tags"
           placeholder="Enter Tag"
-          @enter="onTagEnter"
+          @keydown.enter.prevent="onTagEnter"
         />
         <TagList v-model="formData.tagList" :tags="computeedTags" />
       </div>
@@ -117,8 +85,8 @@ watch(
         type="submit"
         variant="primary"
         size="lg"
+        :disabled="loading"
         :block="false"
-        :disabled="props.loading"
       >
         Submit
       </Button>

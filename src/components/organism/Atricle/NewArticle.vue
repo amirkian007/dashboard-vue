@@ -3,7 +3,7 @@
 import { useArticleStore } from '@/stores/article'
 import { useRouter } from 'vue-router'
 //components
-import ArticleForm from './ArticleForm.vue'
+import ArticleForm from './ArticleFormContainer.vue'
 import { ref } from 'vue'
 import { ArticleFormData } from './article.types'
 //hooks
@@ -19,6 +19,7 @@ async function handleSubmit(formData: ArticleFormData) {
       body: formData.body,
       tagList: formData.tagList,
     }
+    // TODO: handel loading logic in store
     loading.value = true
     await useArticleStore().postArticle({ article: formDataas })
     loading.value = false

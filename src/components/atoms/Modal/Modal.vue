@@ -1,40 +1,39 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, useId, watch } from "vue";
+//utils
+import { defineProps, defineEmits, ref, useId, watch } from 'vue'
 //types
-import { ModalProps } from "./Modal.types";
+import { ModalProps } from './Modal.types'
 // import * as bt from "bootstrap";
 
 //props
-const props = defineProps<ModalProps>();
+const props = defineProps<ModalProps>()
 //emits
 const emit = defineEmits<{
-  (e: "update:modelValue", v: boolean): void;
-}>();
+  (e: 'update:modelValue', v: boolean): void
+}>()
 //hooks
-const id = useId();
+const id = useId()
 //data
-const openModalBtn = ref<HTMLElement | null>(null);
-const closeModalBtn = ref<HTMLElement | null>(null);
-const myModalEl = ref<HTMLElement | null>(null);
+const openModalBtn = ref<HTMLElement | null>(null)
+const closeModalBtn = ref<HTMLElement | null>(null)
+const myModalEl = ref<HTMLElement | null>(null)
 //watchers
 watch(
   () => props.modelValue,
-  (v) => {
+  v => {
     if (v) {
-      showmODAL();
+      showmODAL()
     }
-  }
-);
+  },
+)
 // methods
 function showmODAL() {
-  openModalBtn.value?.click();
+  openModalBtn.value?.click()
 
-  myModalEl.value?.addEventListener("hidden.bs.modal", () => {
-    emit("update:modelValue", false);
-  });
+  myModalEl.value?.addEventListener('hidden.bs.modal', () => {
+    emit('update:modelValue', false)
+  })
 }
-
-
 </script>
 
 <template>

@@ -6,16 +6,17 @@ import DropwDown, { DropItem } from '@/components/molecules/DropwDown.vue'
 //types
 import type { Article } from '@/services/article'
 //utils
-import { useArticleStore } from '@/stores/article'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 //props
 const props = defineProps<{
   article: Article
 }>()
-//hooks
-const router = useRouter()
-const store = useArticleStore()
+
+const emit = defineEmits<{
+  (e: 'edit', slug: string): void
+  (e: 'delete', slug: string): void
+}>()
+
 //data
 interface DorpDowenItems {
   name: string
@@ -31,11 +32,11 @@ async function itemClick(item: DorpDowenItems) {
   if (item.type === 'delete') {
     ismodalOpen.value = true
   } else {
-    router.push(`/editArticle/${props.article.slug}`)
+    emit('edit', props.article.slug)
   }
 }
 async function deleteModal() {
-  await store.deleteArticleBySlug(props.article.slug)
+  emit('delete', props.article.slug)
 }
 </script>
 
